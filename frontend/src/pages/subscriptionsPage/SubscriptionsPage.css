@@ -1,0 +1,32 @@
+.subscriptions-page {
+  padding: 2rem;
+}
+
+.subscription-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.subscription-item {
+  background-color: #f0f0f0;
+  border-radius: 10px;
+  padding: 15px;
+  width: 250px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.subscription-item h3 {
+  margin-top: 0;
+}
+
+.subscription-item button {
+  margin-right: 10px;
+  margin-top: 10px;
+}
+.green{
+    background-color: greenyellow;
+}
+.red{
+    background-color: red;
+}

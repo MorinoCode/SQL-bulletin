@@ -1,0 +1,11 @@
+.your-channels {
+  padding: 2rem;
+  text-align: center;
+}
+
+.channels-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+}

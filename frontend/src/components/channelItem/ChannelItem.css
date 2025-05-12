@@ -1,0 +1,25 @@
+.channel-item {
+  border: 1px solid #ccc;
+  padding: 1rem;
+  border-radius: 8px;
+  width: 250px;
+  background-color: #f9f9f9;
+}
+
+.channel-buttons {
+  margin-top: 1rem;
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+.channel-buttons button {
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+}
+
+.channel-buttons .danger {
+  background-color: #d9534f;
+  color: white;
+  border: none;
+}
