@@ -6,6 +6,7 @@ import usersRouter from './controllers/users/userRouter.js'
 import channelsRouter from './controllers/channels/channelsRouter.js'
 import subscriptionsRouter from './controllers/subscriptions/subscriptionsRouter.js'
 import messageRouter from './controllers/messages/messagesRouter.js'
+import errorHandlerMiddleware from "../../../Node.js/Swing notes API/backend/middleware/errorHandlerMiddleware.js";
 
 dotenv.config();
 
@@ -30,6 +31,10 @@ app.use('/subscriptions',subscriptionsRouter)
 
 //messages Router
 app.use('/messages',messageRouter)
+
+
+// Global error handler
+app.use(errorHandlerMiddleware);
 
 app.listen(port, () => {
   console.log(`✅ connected to the port${port}`);
