@@ -4,6 +4,11 @@ import db from '../../configs/db.js'
 const fetchUserChannelsMiddleware = async (req, res, next) => {
 
     const { user_id } = req.params;
+
+    if (!user_id) {
+    return res.status(400).json({ message: "User ID saknas" });
+  }
+  
   try {
     // Hämta alla kanaler från databasen
    const result = await db.query(

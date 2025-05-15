@@ -13,4 +13,9 @@ pool.connect()
   .then(() => console.log("✅ Database connected successfully"))
   .catch(err => console.error("❌ Failed to connect to the database:", err));
 
-export default pool
+  const db = {
+  query: (text, params) => pool.query(text, params), // För enkla queries
+  getClient: () => pool.connect(),                   // För transaktioner
+};
+
+export default db

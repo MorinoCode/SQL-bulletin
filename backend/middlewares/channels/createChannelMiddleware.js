@@ -5,7 +5,12 @@ const createChannelMiddleware = async (req, res, next) => {
   const { name } = req.body;
   const { user_id } = req.params;
 
+  const client = await db.getClient();
+
   try {
+
+    await client.query("BEGIN"); // Starta transaktion
+
     if (!name || !user_id) {
       return res
         .status(400)
@@ -14,6 +19,8 @@ const createChannelMiddleware = async (req, res, next) => {
 
     const isNameUserIdValid = await channelsValidator({ name, user_id });
     if (isNameUserIdValid != true) {
+
+      await client.query("ROLLBACK");
       return res.status(400).json(isNameUserIdValid);
     }
 
@@ -23,6 +30,8 @@ const createChannelMiddleware = async (req, res, next) => {
     );
     
     if (isUserExist.rows.length == 0) {
+
+      await client.query("ROLLBACK");
       return res
         .status(400)
         .json({ message: " Detta användar id finns inte i DB" });
@@ -34,6 +43,8 @@ const createChannelMiddleware = async (req, res, next) => {
     );
    
     if (isChannelExist.rows.length != 0) {
+
+      await client.query("ROLLBACK");
       return res
         .status(400)
         .json({ message: " Detta kanal namn finns redan i DB" });
@@ -43,12 +54,19 @@ const createChannelMiddleware = async (req, res, next) => {
       "INSERT INTO channels (name , user_id) VALUES( $1 , $2 ) RETURNING * ",
       [name, user_id]
     );
+
+    await client.query("COMMIT");
+
     const createdChannel = newChannel.rows[0];
 
     res.status(201).json({ message: "Ny kanal skapade", createdChannel });
   } catch (err) {
+     await client.query("ROLLBACK");
     next(err);
+  }finally {
+    client.release();
   }
+
 };
 
 export default createChannelMiddleware;
